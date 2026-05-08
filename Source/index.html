@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PT Sinar Permata Sumber Makmur</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; color: #1a1a2e; overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e8edf3;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 6%;
+  }
+  .logo { font-weight: 800; font-size: 1rem; color: #1a1a2e; line-height: 1.2; }
+  .logo span { color: #2563eb; }
+  .logo small { display: block; font-size: 0.65rem; font-weight: 500; color: #94a3b8; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: #64748b; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: #2563eb; }
+  .nav-cta { background: #2563eb; color: #fff; border: none; padding: 0.6rem 1.4rem; border-radius: 8px; font-family: inherit; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+  .nav-cta:hover { background: #1d4ed8; }
+
+  /* SECTION BASE WITH BG PHOTO */
+  .bg-section {
+    position: relative; overflow: hidden;
+  }
+  .bg-section .bg-img {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    z-index: 0;
+  }
+  .bg-section .bg-overlay {
+    position: absolute; inset: 0; z-index: 1;
+  }
+  .bg-section .section-content {
+    position: relative; z-index: 2;
+    padding: 5rem 6%;
+  }
+
+  /* HERO */
+  .hero-bg-img { background-image: url('https://images.unsplash.com/photo-1611735341450-74d61e660ad2?w=1600&q=80'); }
+  .hero-overlay { background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(239,246,255,0.92) 60%, rgba(219,234,254,0.7) 100%); }
+  .hero .section-content { padding-top: 9rem; padding-bottom: 5rem; display: flex; align-items: center; justify-content: space-between; gap: 3rem; flex-wrap: wrap; }
+
+  .hero-badge { display: inline-block; background: #eff6ff; color: #2563eb; font-size: 0.78rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.2rem; }
+  .hero h1 { font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 800; line-height: 1.15; color: #0f172a; max-width: 540px; }
+  .hero h1 span { color: #2563eb; }
+  .hero p { color: #475569; font-size: 1rem; line-height: 1.7; margin-top: 1rem; max-width: 500px; }
+  .hero-btns { display: flex; gap: 0.8rem; margin-top: 2rem; flex-wrap: wrap; }
+  .btn-blue { background: #2563eb; color: #fff; border: none; padding: 0.8rem 1.8rem; border-radius: 8px; font-family: inherit; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; display: inline-flex; align-items: center; text-decoration: none; }
+  .btn-blue:hover { background: #1d4ed8; }
+  .btn-ghost { background: #fff; color: #2563eb; border: 1.5px solid #2563eb; padding: 0.8rem 1.8rem; border-radius: 8px; font-family: inherit; font-weight: 600; font-size: 0.95rem; cursor: pointer; }
+  .btn-ghost:hover { background: #eff6ff; }
+  .hero-stats { display: flex; gap: 2.5rem; margin-top: 2.5rem; flex-wrap: wrap; }
+  .stat-num { font-size: 1.8rem; font-weight: 800; color: #2563eb; }
+  .stat-label { font-size: 0.8rem; color: #64748b; margin-top: 2px; }
+
+  /* ABOUT */
+  .about-bg-img { background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80'); }
+  .about-overlay { background: rgba(255,255,255,0.93); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 2.5rem; }
+  .about-photo { border-radius: 16px; overflow: hidden; height: 320px; }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .value-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+  .value-row { display: flex; align-items: flex-start; gap: 0.8rem; }
+  .v-icon { width: 36px; height: 36px; background: #eff6ff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+  .v-title { font-weight: 600; font-size: 0.92rem; color: #0f172a; }
+  .v-desc { font-size: 0.82rem; color: #64748b; margin-top: 1px; }
+
+  /* SECTION LABELS */
+  .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #2563eb; margin-bottom: 0.6rem; }
+  .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; color: #0f172a; line-height: 1.2; }
+  .section-sub { color: #64748b; font-size: 0.95rem; line-height: 1.7; margin-top: 0.6rem; max-width: 480px; }
+
+  /* PRODUCTS */
+  .products-bg-img { background-image: url('https://images.unsplash.com/photo-1604187351574-c75ca79f5807?w=1600&q=80'); }
+  .products-overlay { background: rgba(241,245,249,0.93); }
+  .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem; margin-top: 2.5rem; }
+  .product-card { background: rgba(255,255,255,0.95); border: 1px solid #e2e8f0; border-radius: 14px; padding: 1.5rem; transition: box-shadow 0.2s, transform 0.2s; }
+  .product-card:hover { box-shadow: 0 8px 24px rgba(37,99,235,0.1); transform: translateY(-2px); }
+  .p-dot { width: 32px; height: 32px; border-radius: 50%; margin-bottom: 1rem; }
+  .p-name { font-weight: 800; font-size: 1.1rem; color: #0f172a; }
+  .p-full { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 1px; }
+  .p-desc { font-size: 0.84rem; color: #64748b; line-height: 1.6; margin-top: 0.6rem; }
+  .p-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 0.8rem; }
+  .p-tag { font-size: 0.7rem; padding: 2px 10px; border-radius: 100px; background: #eff6ff; color: #2563eb; font-weight: 500; }
+
+  /* SERVICES */
+  .services-bg-img { background-image: url('https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=1600&q=80'); }
+  .services-overlay { background: rgba(255,255,255,0.93); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.2rem; margin-top: 2.5rem; }
+  .service-card { background: rgba(255,255,255,0.95); border: 1px solid #e2e8f0; border-radius: 14px; padding: 1.8rem; }
+  .s-num { font-size: 2rem; font-weight: 800; color: #bfdbfe; line-height: 1; }
+  .s-title { font-weight: 700; font-size: 1rem; color: #0f172a; margin-top: 0.6rem; }
+  .s-desc { font-size: 0.84rem; color: #64748b; margin-top: 0.4rem; line-height: 1.6; }
+
+  /* CONTACT */
+  .contact-bg-img { background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80'); }
+  .contact-overlay { background: rgba(241,245,249,0.94); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: start; margin-top: 2.5rem; }
+  .c-info { display: flex; flex-direction: column; gap: 1.2rem; }
+  .c-item { display: flex; align-items: flex-start; gap: 0.8rem; }
+  .c-icon { width: 40px; height: 40px; background: #eff6ff; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .c-label { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+  .c-val { font-size: 0.92rem; font-weight: 500; color: #0f172a; margin-top: 1px; }
+  .c-val a { color: #2563eb; text-decoration: none; }
+  .c-val a:hover { text-decoration: underline; }
+  .wa-side { display: flex; align-items: center; gap: 0.5rem; background: #22c55e; color: #fff; border: none; padding: 0.8rem 1.4rem; border-radius: 8px; font-family: inherit; font-weight: 600; font-size: 0.9rem; cursor: pointer; text-decoration: none; margin-top: 0.5rem; width: fit-content; }
+  .wa-side:hover { background: #16a34a; }
+  .form-box { background: rgba(255,255,255,0.97); border: 1px solid #e2e8f0; border-radius: 16px; padding: 2rem; }
+  .form-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .fg { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 0.9rem; }
+  .fg label { font-size: 0.8rem; font-weight: 600; color: #374151; }
+  .fg input, .fg textarea, .fg select { background: #f8fafc; border: 1px solid #e2e8f0; color: #0f172a; font-family: inherit; font-size: 0.9rem; padding: 0.7rem 0.9rem; border-radius: 8px; outline: none; transition: border-color 0.2s; }
+  .fg input:focus, .fg textarea:focus, .fg select:focus { border-color: #2563eb; background: #fff; }
+  .fg textarea { resize: vertical; min-height: 100px; }
+  .wa-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: #22c55e; color: #fff; border: none; padding: 0.8rem; border-radius: 8px; font-family: inherit; font-weight: 600; font-size: 0.92rem; cursor: pointer; width: 100%; margin-top: 0.5rem; text-decoration: none; }
+  .wa-btn:hover { background: #16a34a; }
+
+  footer { background: #0f172a; color: #94a3b8; padding: 2rem 6%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-weight: 800; font-size: 0.95rem; color: #fff; line-height: 1.3; }
+  .footer-logo span { color: #60a5fa; }
+  .footer-copy { font-size: 0.8rem; }
+
+  @media(max-width: 768px) {
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .form-row2 { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero .section-content { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    PT Sinar Permata <span>Sumber Makmur</span>
+    <small>Pellet Plastics Supplier</small>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
+</nav>
+
+<!-- HERO -->
+<div class="bg-section hero" id="home">
+  <div class="bg-img hero-bg-img"></div>
+  <div class="bg-overlay hero-overlay"></div>
+  <div class="section-content">
+    <div>
+      <div class="hero-badge">🏭 Industrial Plastic Materials</div>
+      <h1>Quality <span>Pellet Plastics</span> for Your Industry</h1>
+      <p>PT Sinar Permata Sumber Makmur supplies premium-grade plastic pellets for manufacturers across Indonesia and Southeast Asia. Reliable, consistent, and ready to ship.</p>
+      <div class="hero-btns">
+        <button class="btn-blue" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request a Quote</button>
+        <button class="btn-ghost" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">View Products</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">500+</div><div class="stat-label">Clients Served</div></div>
+        <div><div class="stat-num">10+</div><div class="stat-label">Years in Business</div></div>
+        <div><div class="stat-num">15+</div><div class="stat-label">Product Grades</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="bg-section" id="about">
+  <div class="bg-img about-bg-img"></div>
+  <div class="bg-overlay about-overlay"></div>
+  <div class="section-content">
+    <div class="section-label">About Us</div>
+    <h2 class="section-title">Trusted Supplier of Industrial Plastics</h2>
+    <p class="section-sub">PT Sinar Permata Sumber Makmur has been supplying high-quality plastic pellets to manufacturers across Indonesia. We pride ourselves on consistency, reliability, and competitive pricing.</p>
+    <div class="about-grid">
+      <div class="about-photo">
+        <img src="https://images.unsplash.com/photo-1611735341450-74d61e660ad2?w=800&q=80" alt="Plastic pellets" onerror="this.style.background='#eff6ff';this.style.display='block'"/>
+      </div>
+      <div>
+        <div class="value-list">
+          <div class="value-row"><div class="v-icon">✅</div><div><div class="v-title">Certified Quality</div><div class="v-desc">All products meet international material standards.</div></div></div>
+          <div class="value-row"><div class="v-icon">🚚</div><div><div class="v-title">Fast Delivery</div><div class="v-desc">Nationwide shipping with on-time guarantees.</div></div></div>
+          <div class="value-row"><div class="v-icon">📦</div><div><div class="v-title">Bulk & Custom Orders</div><div class="v-desc">Flexible quantities for businesses of all sizes.</div></div></div>
+          <div class="value-row"><div class="v-icon">🤝</div><div><div class="v-title">Dedicated Support</div><div class="v-desc">Our team is ready to assist with your procurement needs.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="bg-section" id="products">
+  <div class="bg-img products-bg-img"></div>
+  <div class="bg-overlay products-overlay"></div>
+  <div class="section-content">
+    <div class="section-label">Our Products</div>
+    <h2 class="section-title">Pellet Plastic Materials</h2>
+    <p class="section-sub">We carry a wide range of virgin and recycled plastic pellets to suit various manufacturing needs.</p>
+    <div class="products-grid">
+      <div class="product-card"><div class="p-dot" style="background:#38bdf8;"></div><div class="p-name">PP</div><div class="p-full">Polypropylene</div><div class="p-desc">Lightweight and chemical-resistant. Ideal for packaging, automotive parts, and containers.</div><div class="p-tags"><span class="p-tag">Virgin</span><span class="p-tag">Recycled</span><span class="p-tag">Food-grade</span></div></div>
+      <div class="product-card"><div class="p-dot" style="background:#4ade80;"></div><div class="p-name">PE</div><div class="p-full">Polyethylene</div><div class="p-desc">HDPE & LDPE available. Used in pipes, films, bottles, and industrial packaging.</div><div class="p-tags"><span class="p-tag">HDPE</span><span class="p-tag">LDPE</span><span class="p-tag">LLDPE</span></div></div>
+      <div class="product-card"><div class="p-dot" style="background:#fb923c;"></div><div class="p-name">PVC</div><div class="p-full">Polyvinyl Chloride</div><div class="p-desc">Durable and versatile. Widely used in construction, pipes, and cable insulation.</div><div class="p-tags"><span class="p-tag">Rigid</span><span class="p-tag">Flexible</span></div></div>
+      <div class="product-card"><div class="p-dot" style="background:#f472b6;"></div><div class="p-name">ABS</div><div class="p-full">Acrylonitrile Butadiene Styrene</div><div class="p-desc">High impact strength. Great for electronics casings, appliances, and automotive trim.</div><div class="p-tags"><span class="p-tag">Virgin</span><span class="p-tag">High-impact</span></div></div>
+      <div class="product-card"><div class="p-dot" style="background:#a78bfa;"></div><div class="p-name">PET</div><div class="p-full">Polyethylene Terephthalate</div><div class="p-desc">Used in beverage bottles, food containers, and textile fibers.</div><div class="p-tags"><span class="p-tag">Food-grade</span><span class="p-tag">Recycled</span></div></div>
+      <div class="product-card"><div class="p-dot" style="background:#34d399;"></div><div class="p-name">PS</div><div class="p-full">Polystyrene</div><div class="p-desc">Used in foam packaging, disposable cutlery, insulation, and lab equipment.</div><div class="p-tags"><span class="p-tag">GPPS</span><span class="p-tag">HIPS</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="bg-section" id="services">
+  <div class="bg-img services-bg-img"></div>
+  <div class="bg-overlay services-overlay"></div>
+  <div class="section-content">
+    <div class="section-label">What We Offer</div>
+    <h2 class="section-title">Our Services</h2>
+    <p class="section-sub">More than just materials — we support your procurement process from end to end.</p>
+    <div class="services-grid">
+      <div class="service-card"><div class="s-num">01</div><div class="s-title">Bulk Supply</div><div class="s-desc">Large-volume orders with consistent quality and competitive pricing for manufacturers and distributors.</div></div>
+      <div class="service-card"><div class="s-num">02</div><div class="s-title">Custom Orders</div><div class="s-desc">Specific grades, colors, or blends? We'll source or compound the right material for you.</div></div>
+      <div class="service-card"><div class="s-num">03</div><div class="s-title">Nationwide Delivery</div><div class="s-desc">Logistics coverage across Indonesia with timely, safe delivery to your facility.</div></div>
+      <div class="service-card"><div class="s-num">04</div><div class="s-title">Material Consultation</div><div class="s-desc">Not sure which grade suits your product? Our team will help you choose the right material.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="bg-section" id="contact">
+  <div class="bg-img contact-bg-img"></div>
+  <div class="bg-overlay contact-overlay"></div>
+  <div class="section-content">
+    <div class="section-label">Contact Us</div>
+    <h2 class="section-title">Get a Quote Today</h2>
+    <p class="section-sub">Reach out to us and we'll get back to you within 1 business day.</p>
+    <div class="contact-grid">
+      <div class="c-info">
+        <div class="c-item"><div class="c-icon">👤</div><div><div class="c-label">Contact Person</div><div class="c-val">Dheven Sandhita</div></div></div>
+        <div class="c-item"><div class="c-icon">📱</div><div><div class="c-label">WhatsApp</div><div class="c-val"><a href="https://wa.me/6287880733680" target="_blank">+62 878 8073 3680</a></div></div></div>
+        <div class="c-item"><div class="c-icon">📧</div><div><div class="c-label">Email</div><div class="c-val"><a href="mailto:Dhevensandhita11@gmail.com">Dhevensandhita11@gmail.com</a></div></div></div>
+        <div class="c-item"><div class="c-icon">📍</div><div><div class="c-label">Location</div><div class="c-val">Jakarta, Indonesia</div></div></div>
+        <a href="https://wa.me/6287880733680" target="_blank" class="wa-side">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+      <div class="form-box">
+        <div class="form-row2">
+          <div class="fg"><label>Your Name</label><input type="text" placeholder="John Doe"/></div>
+          <div class="fg"><label>Company Name</label><input type="text" placeholder="PT. Example"/></div>
+        </div>
+        <div class="fg"><label>Email Address</label><input type="email" placeholder="you@company.com"/></div>
+        <div class="fg"><label>Product Interested In</label>
+          <select>
+            <option value="">Select a product...</option>
+            <option>PP – Polypropylene</option>
+            <option>PE – Polyethylene (HDPE/LDPE)</option>
+            <option>PVC – Polyvinyl Chloride</option>
+            <option>ABS – Acrylonitrile Butadiene Styrene</option>
+            <option>PET – Polyethylene Terephthalate</option>
+            <option>PS – Polystyrene</option>
+            <option>Other / Not Sure</option>
+          </select>
+        </div>
+        <div class="fg"><label>Message / Requirements</label><textarea placeholder="Tell us your quantity, grade, or any specific needs..."></textarea></div>
+        <button class="btn-blue" style="width:100%; margin-bottom:0.6rem; justify-content:center;">Send Inquiry</button>
+        <a href="https://wa.me/6287880733680" target="_blank" class="wa-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">PT Sinar Permata <span>Sumber Makmur</span></div>
+  <div class="footer-copy">© 2025 PT Sinar Permata Sumber Makmur. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
